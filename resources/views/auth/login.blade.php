@@ -1,4 +1,10 @@
-@extends('app')
+<?php
+    $encrypter = app('Illuminate\Encryption\Encrypter');
+        $encrypted_token = $encrypter->encrypt(csrf_token());
+ ?>
+
+
+@extends('public.public')
 
 @section('content')
 <div class="container-fluid">
@@ -17,8 +23,8 @@
 							</ul>
 						</div>
 					@endif
-
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+                    
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('auth/login') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">

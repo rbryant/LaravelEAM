@@ -1,4 +1,4 @@
-@extends('app')
+@extends('public.public')
 
 @section('content')
 <div class="container-fluid">
@@ -18,20 +18,34 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('auth/register') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<label class="col-md-4 control-label">First Name</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+								<input type="text" class="form-control" name="first_name" value="{{ old('first_name') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Last Name</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="last_name" value="{{ old('last_name') }}">
+							</div>
+						</div>
+						
+						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+							</div>
+						</div>
+
+                        <div class="form-group">
+							<label class="col-md-4 control-label">Company Name</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="tenant_name" value="{{ old('tenant_name') }}">
 							</div>
 						</div>
 

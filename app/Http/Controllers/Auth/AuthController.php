@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Auth;
+<?php 
+
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
@@ -35,4 +37,24 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
+	public function login()
+	{
+		return view('auth.login');
+
+	}
+	
+	public function logout()
+	{
+    	if(Auth::check()){
+            Auth::logout();
+            flash('You have been loggged out.');
+	        return redirect('/');
+    	}
+	}	
+
+	public function register()
+	{
+		return view('auth.register');//->with('title', 'Register');
+	}
+	
 }

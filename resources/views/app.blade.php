@@ -1,8 +1,17 @@
+<?php
+if(!isset($title)) $title = ' ';
+
+if(Auth::check()){
+    Auth::user()->setGravatarAttribute();
+    Auth::User()->setFullNameAttribute();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>AdminLTE 2 | Dashboard</title>
+        <title><?php echo $title ?></title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- Bootstrap 3.3.2 -->
         <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -18,7 +27,7 @@
         <!-- iCheck -->
         <link href="{{ asset('/plugins/iCheck/flat/blue.css') }}" rel="stylesheet" type="text/css" />
         <!-- Morris chart -->
-        <link href="{{ asset('/plugins/morris/morris.css') }}" rel="stylesheet" type="text/css" />
+        <!--link href="{{ asset('/plugins/morris/morris.css') }}" rel="stylesheet" type="text/css" /-->
         <!-- jvectormap -->
         <link href="{{ asset('/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
         <!-- Date Picker -->
@@ -33,34 +42,49 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+        
+        <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css" />
     </head>
-    <body class="skin-blue">
+    @if (Auth::guest())
+    <body class="skin-black sidebar-collapse">
+    @else
+    <body class="skin-black ">
+    @endif  
+    
         <div class="wrapper">
-            @include('includes.header')
-            @include('includes.sidebar')
+            @include('partials.header')
+            @if (Auth::guest())
+            
+            @else
+                @include('partials.sidebar')
+            @endif  
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                    Dashboard
-                    <small>Control panel</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
-                    </ol>
-                </section>
-                <!-- Main content -->
-                <section class="content">
+            <div class="content-wrapper"  style="background-color:#fff;">
+                <!-- breadcrumbs -->
+                <ol class="breadcrumb">
+                <?php 
+                    if($title=='Home' || $title=' ' ){
+                        echo '';
+                    }
+                    else{
+                        echo '<li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>';
+                        echo '<li class="active">'.$title.'</li>';
+                    }
+                ?>
+                </ol>
+    <!-- Main content -->
+                <section class="content-fluid">
+                    @include('flash::message')
                     @yield('content')
+                    @include('partials.ajax_dialog')
+
                 </section><!-- /.content -->
             </div><!-- /.content-wrapper -->
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 2.0
                 </div>
-                <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2014-2015 <a href="http://better-webs.com">Better-Webs.com</a>.</strong> All rights reserved.
             </footer>
         </div><!-- ./wrapper -->
 
@@ -71,12 +95,21 @@
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);
+            
+            var url = window.location;
+            // Will only work if string in href matches with location
+            $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+            
+            // Will also work for relative and absolute hrefs
+            $('ul.nav a').filter(function() {
+                return this.href == url;
+            }).parent().addClass('active');
         </script>
         <!-- Bootstrap 3.3.2 JS -->
         <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <!-- Morris.js charts -->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="{{ asset('/plugins/morris/morris.min.js') }}" type="text/javascript"></script>
+        <!--script src="{{ asset('/plugins/morris/morris.min.js') }}" type="text/javascript"></script-->
         <!-- Sparkline -->
         <script src="{{ asset('/plugins/sparkline/jquery.sparkline.min.js') }}" type="text/javascript"></script>
         <!-- jvectormap -->
@@ -96,11 +129,15 @@
         <script src="{{ asset('/plugins/slimScroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
         <!-- FastClick -->
         <script src="{{ asset('/plugins/fastclick/fastclick.min.js') }}"></script>
+        <!-- Nifty Modal -->
+        <script src="{{ asset('/plugins/niftyModal/niftymodal.js') }}"></script>
+
         <!-- AdminLTE App -->
         <script src="{{ asset('/dist/js/app.min.js') }}" type="text/javascript"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="{{ asset('/dist/js/pages/dashboard.js') }}" type="text/javascript"></script>
+        <!--script src="{{ asset('/dist/js/pages/dashboard.js') }}" type="text/javascript"></script-->
         <!-- AdminLTE for demo purposes -->
-        <script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script>
+        <!--script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script-->
+
     </body>
 </html>

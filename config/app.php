@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://bettereammt.rontbryant.koding.io',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -135,7 +135,11 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
-
+        'Illuminate\Html\HtmlServiceProvider',
+        'Laracasts\Flash\FlashServiceProvider',
+        'AuraIsHere\LaravelMultiTenant\LaravelMultiTenantServiceProvider',
+        'Creativeorange\Gravatar\GravatarServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */
@@ -144,9 +148,11 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
+        //'App\Providers\RepositoryServiceProvider',
 
 		'JasperPHP\JasperPHPServiceProvider',
+		'Prettus\Repository\Providers\RepositoryServiceProvider',
+
 	],
 
 	/*
@@ -194,7 +200,12 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-
+        'Form'      => 'Illuminate\Html\FormFacade',
+        'Html'      => 'Illuminate\Html\HtmlFacade',
+        'Flash'     => 'Laracasts\Flash\Flash',
+        'Gravatar'  => 'Creativeorange\Gravatar\Facades\Gravatar',
+        'TenantScope' => 'AuraIsHere\LaravelMultiTenant\Facades\TenantScopeFacade',
+        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
 	],
 
 ];
